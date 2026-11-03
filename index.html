@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Wilson Guedes Matos - Consultório Odontológico</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        dental: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#06b6d4',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 bg-gradient-to-tr from-dental-600 to-dental-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-dental-500/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid font-bold fa-tooth text-2xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-dental-900 to-dental-700 bg-clip-text text-transparent block leading-tight">Dr. Wilson Guedes</span>
+                    <span class="text-xs text-dental-600 font-medium tracking-wide uppercase">Odontologia Especializada</span>
+                </div>
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#servicos" class="text-sm font-semibold text-slate-600 hover:text-dental-600 transition-colors">Serviços & Tabela</a>
+                <a href="#agendamento" class="text-sm font-semibold text-slate-600 hover:text-dental-600 transition-colors">Agendar Consulta</a>
+                <a href="#sobre" class="text-sm font-semibold text-slate-600 hover:text-dental-600 transition-colors">Sobre o Dentista</a>
+                <a href="#localizacao" class="text-sm font-semibold text-slate-600 hover:text-dental-600 transition-colors">Localização</a>
+            </nav>
+
+            <!-- User Status / Auth Buttons -->
+            <div id="authArea" class="flex items-center gap-3">
+                <button onclick="openAuthModal('login')" class="px-5 py-2.5 text-sm font-semibold text-dental-700 bg-dental-50 hover:bg-dental-100 rounded-xl transition-all border border-dental-200">
+                    <i class="fa-solid fa-right-to-bracket mr-2"></i>Entrar
+                </button>
+                <button onclick="openAuthModal('register')" class="px-5 py-2.5 text-sm font-semibold text-white bg-dental-600 hover:bg-dental-700 rounded-xl shadow-lg shadow-dental-600/30 hover:shadow-none transition-all">
+                    Criar Conta
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-dental-50/60 to-white pt-12 pb-20 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-dental-100 text-dental-800 text-xs font-semibold tracking-wide uppercase mb-4">Atendimento Humanizado & Especializado</span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                Cuidando do seu sorriso com excelência e dedicação
+            </h1>
+            <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                Mais de 20 anos de experiência em implantodontia, próteses e cirurgias. Agende sua consulta ou procedimento com facilidade e rapidez.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#agendamento" class="w-full sm:w-auto px-8 py-4 bg-dental-600 hover:bg-dental-700 text-white font-bold rounded-2xl shadow-xl shadow-dental-600/30 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-calendar-check text-lg"></i> Agendar Agora
+                </a>
+                <a href="https://wa.me/5598996018816" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-xl shadow-emerald-600/20 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Contato Presencial
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TABELA DE SERVIÇOS E PROCEDIMENTOS -->
+    <section id="servicos" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">Procedimentos & Tabela de Preços</h2>
+                <p class="text-slate-500 mt-2">Transparência e valores acessíveis para a sua saúde bucal.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="servicesGrid">
+                <!-- Inserido dinamicamente via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- PAINEL DE AGENDAMENTO (ESTILO TRIP/BOOKING) -->
+    <section id="agendamento" class="py-16 bg-slate-100/70 border-y border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-xl border border-slate-200/80 p-6 sm:p-10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-dental-500/10 rounded-bl-full pointer-events-none"></div>
+
+                <div class="mb-8">
+                    <span class="text-xs font-bold uppercase tracking-wider text-dental-600">Reserva de Consulta</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Marque seu Horário em Poucos Passos</h2>
+                </div>
+
+                <!-- Formulário de Agendamento Estilo Passagem -->
+                <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Seleção do Procedimento -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">
+                                <i class="fa-solid fa-notes-medical text-dental-600 mr-1.5"></i> Procedimento Desejado
+                            </label>
+                            <select id="bookingService" onchange="updateBookingPriceAlert()" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-dental-500 focus:border-dental-500 bg-slate-50 text-slate-800 font-medium">
+                                <option value="" disabled selected>Selecione um procedimento</option>
+                            </select>
+                            <div id="servicePriceBadge" class="mt-2 text-xs font-semibold text-slate-600"></div>
+                        </div>
+
+                        <!-- Data do Agendamento -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">
+                                <i class="fa-regular fa-calendar-days text-dental-600 mr-1.5"></i> Data da Consulta
+                            </label>
+                            <input type="date" id="bookingDate" required onchange="checkWeekendRule()" class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-dental-500 focus:border-dental-500 bg-slate-50 text-slate-800 font-medium">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Turno/Horário -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">
+                                <i class="fa-regular fa-clock text-dental-600 mr-1.5"></i> Horário Preferencial
+                            </label>
+                            <select id="bookingTime" required class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-dental-500 focus:border-dental-500 bg-slate-50 text-slate-800 font-medium">
+                                <option value="" disabled selected>Escolha um horário</option>
+                                <option value="08:30">08:30 (Manhã)</option>
+                                <option value="10:00">10:00 (Manhã)</option>
+                                <option value="14:00">14:00 (Tarde)</option>
+                                <option value="16:00">16:00 (Tarde)</option>
+                                <option value="17:30">17:30 (Tarde)</option>
+                            </select>
+                        </div>
+
+                        <!-- Nome do Paciente / Status Login -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">
+                                <i class="fa-regular fa-user text-dental-600 mr-1.5"></i> Paciente
+                            </label>
+                            <input type="text" id="bookingPatientName" readonly placeholder="Faça login para agendar" class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-600 font-medium cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Alerta de Fim de Semana (Condicional) -->
+                    <div id="weekendAlert" class="hidden p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 flex items-start gap-3">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600 text-xl mt-0.5"></i>
+                        <div>
+                            <h4 class="font-bold text-sm">Agendamento em Fim de Semana (Sábado/Domingo)</h4>
+                            <p class="text-xs text-amber-700 mt-1">
+                                Dias de fim de semana só podem ser agendados através de <strong>marcação presencial</strong> ou contato direto pelo WhatsApp.
+                            </p>
+                            <a href="https://wa.me/5598996018816?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20agendamento%20para%20o%20fim%20de%20semana." target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-900 bg-amber-200 hover:bg-amber-300 px-3 py-1.5 rounded-lg mt-2 transition-colors">
+                                <i class="fa-brands fa-whatsapp"></i> Falar com Dr. Wilson no WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button type="submit" id="btnSubmitBooking" class="w-full sm:w-auto px-8 py-4 bg-dental-600 hover:bg-dental-700 text-white font-bold rounded-xl shadow-lg shadow-dental-600/30 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-check"></i> Confirmar Marcação
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAINEL EXCLUSIVO DO DENTISTA (Visível apenas após login do dentista) -->
+    <section id="dentistDashboard" class="hidden py-16 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b border-slate-800 pb-6">
+                <div>
+                    <span class="px-3 py-1 bg-dental-500/20 text-dental-400 border border-dental-500/30 rounded-full text-xs font-semibold">Painel Administrativo</span>
+                    <h2 class="text-3xl font-extrabold mt-2">Consultas Agendadas pelos Pacientes</h2>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="clearAllAppointments()" class="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-semibold rounded-lg border border-red-500/30 transition-colors">
+                        <i class="fa-solid fa-trash mr-1.5"></i>Limpar Registros
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabela de Consultas -->
+            <div class="bg-slate-800/80 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-800 text-slate-400 font-semibold uppercase text-xs">
+                            <tr>
+                                <th class="px-6 py-4">Paciente</th>
+                                <th class="px-6 py-4">Procedimento</th>
+                                <th class="px-6 py-4">Data</th>
+                                <th class="px-6 py-4">Horário</th>
+                                <th class="px-6 py-4">Preço / Status</th>
+                                <th class="px-6 py-4 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dentistAppointmentsList" class="divide-y divide-slate-700/60 text-slate-200">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="noAppointmentsMsg" class="p-8 text-center text-slate-500 hidden">
+                    <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
+                    Nenhuma consulta agendada até o momento.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO SOBRE O DENTISTA / APRESENTAÇÃO -->
+    <section id="sobre" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-dental-50 to-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200/70 shadow-lg">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Foto do Dentista -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-dental-600 to-dental-400 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+                            <img src="3aba4d42-ba4b-4c64-aad5-ac097ebfc63c.jpg" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/500x600/0284c7/white?text=Dr.+Wilson+Guedes';" 
+                                 alt="Dr. Wilson de Jesus Guedes Matos em seu consultório" 
+                                 class="relative rounded-2xl shadow-xl w-full max-w-sm object-cover border-4 border-white">
+                        </div>
+                    </div>
+
+                    <!-- Informações do Dentista -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div>
+                            <span class="text-xs font-bold text-dental-600 tracking-wider uppercase">Responsável Técnico</span>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">Wilson de Jesus Guedes Matos</h2>
+                            <p class="text-dental-700 font-medium text-sm mt-1">CRO: 01341</p>
+                        </div>
+
+                        <!-- Card de Experiência -->
+                        <div class="inline-flex items-center gap-4 bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="w-12 h-12 rounded-lg bg-dental-100 text-dental-700 flex items-center justify-center font-bold text-xl">
+                                20
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Anos de Experiência Profissional</h4>
+                                <p class="text-xs text-slate-500">Dedicação contínua à saúde bucal e sorrisos</p>
+                            </div>
+                        </div>
+
+                        <!-- Formação Acadêmica -->
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">Formação Acadêmica & Especializações</h3>
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-medium text-slate-700">
+                                <li class="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-xs">
+                                    <i class="fa-solid fa-graduation-cap text-dental-600"></i> Graduação em Odontologia
+                                </li>
+                                <li class="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-xs">
+                                    <i class="fa-solid fa-tooth text-dental-600"></i> Especialização em Implantodontia
+                                </li>
+                                <li class="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-xs">
+                                    <i class="fa-solid fa-square-plus text-dental-600"></i> Prótese Dentária
+                                </li>
+                                <li class="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-xs">
+                                    <i class="fa-solid fa-scissors text-dental-600"></i> Cirurgia Maior e Menor
+                                </li>
+                                <li class="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-xs sm:col-span-2">
+                                    <i class="fa-solid fa-hospital-user text-dental-600"></i> Estomatologia e Odonto Hospitalar
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Botão de WhatsApp -->
+                        <div class="pt-2">
+                            <a href="https://wa.me/5598996018816" target="_blank" class="inline-flex items-center gap-3 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/30 transition-all">
+                                <i class="fa-brands fa-whatsapp text-xl"></i> Conversar com o Dr. Wilson (98) 98960-18816
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO -->
+    <section id="localizacao" class="py-12 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-dental-400">Visite nosso Consultório</span>
+                    <h3 class="text-2xl font-bold mt-1">Localização Privilegiada</h3>
+                    <p class="text-slate-300 mt-2 flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-dental-400"></i>
+                        Rua de Santa Rita, 514 - Centro, São Luís - MA, CEP: 65015-900
+                    </p>
+                </div>
+                <div class="text-right">
+                    <a href="https://maps.google.com/?q=Rua+de+Santa+Rita,+514+-+Centro,+São+Luís+-+MA" target="_blank" class="inline-flex items-center gap-2 px-5 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700 font-medium transition-colors text-sm">
+                        <i class="fa-solid fa-map-location-dot text-dental-400"></i> Abrir no Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+            <p>&copy; 2026 Consultório Odontológico Dr. Wilson de Jesus Guedes Matos. Todos os direitos reservados.</p>
+            <p class="text-slate-500">CRO: 01341 | São Luís - MA</p>
+        </div>
+    </footer>
+
+    <!-- MODAL AUTENTICAÇÃO (LOGIN / CADASTRO) -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative border border-slate-100">
+            <!-- Botão Fechar -->
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Tabs de Alternância (Paciente vs Dentista) -->
+            <div class="flex border-b border-slate-200 mb-6">
+                <button id="tabPatient" onclick="switchAuthUserType('patient')" class="flex-1 pb-3 text-sm font-bold text-dental-600 border-b-2 border-dental-600">
+                    <i class="fa-solid fa-user-injured mr-1.5"></i>Paciente
+                </button>
+                <button id="tabDentist" onclick="switchAuthUserType('dentist')" class="flex-1 pb-3 text-sm font-bold text-slate-400 border-b-2 border-transparent hover:text-slate-600">
+                    <i class="fa-solid fa-user-doctor mr-1.5"></i>Dentista
+                </button>
+            </div>
+
+            <!-- FORMS DE PACIENTE -->
+            <div id="patientForms">
+                <!-- Toggle Login / Cadastro -->
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="patientModalTitle" class="text-xl font-extrabold text-slate-900">Entrar como Paciente</h3>
+                    <button id="togglePatientModeBtn" onclick="togglePatientAuthMode()" class="text-xs font-semibold text-dental-600 hover:underline">
+                        Não tem conta? Cadastre-se
+                    </button>
+                </div>
+
+                <form id="patientAuthForm" onsubmit="handlePatientAuth(event)" class="space-y-4">
+                    <div id="patientNameField" class="hidden">
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nome Completo</label>
+                        <input type="text" id="patientNameInput" placeholder="Seu nome" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-dental-500 focus:border-dental-500 text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">E-mail</label>
+                        <input type="email" id="patientEmailInput" required placeholder="seuemail@exemplo.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-dental-500 focus:border-dental-500 text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Senha</label>
+                        <input type="password" id="patientPasswordInput" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-dental-500 focus:border-dental-500 text-sm">
+                    </div>
+
+                    <button type="submit" id="patientSubmitBtn" class="w-full py-3.5 bg-dental-600 hover:bg-dental-700 text-white font-bold rounded-xl shadow-lg shadow-dental-600/30 transition-all text-sm mt-2">
+                        Entrar na Conta
+                    </button>
+                </form>
+            </div>
+
+            <!-- FORM DE DENTISTA -->
+            <div id="dentistForm" class="hidden">
+                <div class="mb-6">
+                    <h3 class="text-xl font-extrabold text-slate-900">Acesso Restrito - Dentista</h3>
+                    <p class="text-xs text-slate-500 mt-1">Informe seu CRO e Senha cadastrada.</p>
+                </div>
+
+                <form onsubmit="handleDentistAuth(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">CRO (Nº Registro)</label>
+                        <input type="text" id="dentistCroInput" required placeholder="Ex: 01341" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-dental-500 focus:border-dental-500 text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Senha</label>
+                        <input type="password" id="dentistPasswordInput" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-dental-500 focus:border-dental-500 text-sm">
+                    </div>
+
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-500">
+                        <i class="fa-solid fa-circle-info text-dental-600 mr-1"></i>
+                        Dica para Testes: CRO: <strong>01341</strong> | Senha: <strong>Wilson123@</strong>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-lg shadow-slate-900/20 transition-all text-sm mt-2">
+                        Acessar Painel do Dentista
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICAÇÃO TOAST EMBUTIDA -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div id="toastContent" class="px-5 py-3.5 rounded-2xl shadow-xl text-sm font-semibold flex items-center gap-3 bg-slate-900 text-white border border-slate-700">
+            <span id="toastIcon"></span>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <!-- LÓGICA E SCRIPT DA APLICAÇÃO -->
+    <script>
+        // DATA SET DE OPERAÇÕES E CONSULTAS
+        const servicesData = [
+            { id: 1, name: 'Implante', price: 'R$ 2.500,00', isNegotiable: false, rawPrice: 2500, icon: 'fa-tooth' },
+            { id: 2, name: 'Siso (extração)', price: 'R$ 800,00 a R$ 1.000,00', isNegotiable: true, note: 'Negociação presencial', rawPrice: 800, icon: 'fa-tooth' },
+            { id: 3, name: 'Restauração', price: 'R$ 180,00', isNegotiable: false, rawPrice: 180, icon: 'fa-wrench' },
+            { id: 4, name: 'Extração geral', price: 'R$ 200,00', isNegotiable: false, rawPrice: 200, icon: 'fa-teeth-open' },
+            { id: 5, name: 'Limpeza', price: 'R$ 200,00', isNegotiable: false, rawPrice: 200, icon: 'fa-sparkles' },
+            { id: 6, name: 'Profilaxia', price: 'R$ 250,00', isNegotiable: false, rawPrice: 250, icon: 'fa-shield-halved' },
+            { id: 7, name: 'Canal', price: 'R$ 800,00', isNegotiable: true, note: 'Negociação presencial', rawPrice: 800, icon: 'fa-vial-virus' },
+            { id: 8, name: 'Placas (bruxismo, Clareamento, etc.)', price: 'R$ 800,00', isNegotiable: false, rawPrice: 800, icon: 'fa-mask-face' },
+            { id: 9, name: 'Prótese dentária (PPR, total, parcial, FLEX, etc.)', price: 'R$ 1.500,00', isNegotiable: false, rawPrice: 1500, icon: 'fa-teeth' },
+            { id: 10, name: 'Coroa de porcelana, IMEX, zirconia e cerômero', price: 'Negociação presencial', isNegotiable: true, note: 'Negociação presencial', rawPrice: 0, icon: 'fa-gem' },
+            { id: 11, name: 'Consulta geral', price: 'Negociação presencial', isNegotiable: true, note: 'Negociação presencial', rawPrice: 0, icon: 'fa-stethoscope' }
+        ];
+
+        // CREDENCIAIS FIXAS DO DENTISTA
+        const DENTIST_CREDENTIALS = {
+            cro: '01341',
+            password: 'Wilson123@',
+            name: 'Dr. Wilson de Jesus Guedes Matos'
+        };
+
+        // ESTADO GLOBAL DA SESSÃO E BANCO DE DADOS LOCAL
+        let currentUser = JSON.parse(localStorage.getItem('dental_user')) || null;
+        let appointments = JSON.parse(localStorage.getItem('dental_appointments')) || [];
+        let isPatientRegisterMode = false;
+        let activeAuthTab = 'patient';
+
+        // INICIALIZAÇÃO DA PÁGINA
+        document.addEventListener('DOMContentLoaded', () => {
+            renderServicesGrid();
+            populateBookingServiceOptions();
+            updateAuthUI();
+            renderDentistAppointments();
+            setMinBookingDate();
+        });
+
+        // DEFINIR DATA MÍNIMA DE AGENDAMENTO PARA HOJE
+        function setMinBookingDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('bookingDate').setAttribute('min', today);
+        }
+
+        // RENDERIZAR CARDS DE SERVIÇOS
+        function renderServicesGrid() {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = servicesData.map(service => `
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center text-dental-600 mb-4 group-hover:bg-dental-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid ${service.icon} text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 leading-snug">${service.name}</h3>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200/60 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400 block font-medium">Valor do Procedimento</span>
+                            <span class="text-base font-extrabold ${service.isNegotiable ? 'text-amber-600' : 'text-dental-700'}">
+                                ${service.price}
+                            </span>
+                        </div>
+                        ${service.isNegotiable ? `
+                            <span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-[11px] font-bold rounded-lg border border-amber-200">
+                                Negociação presencial
+                            </span>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // PREENCHER DROPDOWN DO FORMULÁRIO DE AGENDAMENTO
+        function populateBookingServiceOptions() {
+            const select = document.getElementById('bookingService');
+            select.innerHTML = '<option value="" disabled selected>Selecione um procedimento</option>' + 
+                servicesData.map(s => `<option value="${s.id}">${s.name} - ${s.price}</option>`).join('');
+        }
+
+        // ATUALIZAR ALERTA DE PREÇO NO FORMULÁRIO
+        function updateBookingPriceAlert() {
+            const select = document.getElementById('bookingService');
+            const selectedId = parseInt(select.value);
+            const service = servicesData.find(s => s.id === selectedId);
+            const badge = document.getElementById('servicePriceBadge');
+
+            if (service) {
+                if (service.isNegotiable) {
+                    badge.innerHTML = `<span class="text-amber-600 font-bold"><i class="fa-solid fa-circle-info mr-1"></i>Este procedimento exige negociação presencial ou avaliação.</span>`;
+                } else {
+                    badge.innerHTML = `<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check mr-1"></i>Valor fixado em ${service.price}</span>`;
+                }
+            }
+        }
+
+        // VERIFICAR REGRA DE FIM DE SEMANA NO AGENDAMENTO
+        function checkWeekendRule() {
+            const dateInput = document.getElementById('bookingDate').value;
+            const weekendAlert = document.getElementById('weekendAlert');
+            const submitBtn = document.getElementById('btnSubmitBooking');
+
+            if (!dateInput) return;
+
+            const selectedDate = new Date(dateInput + 'T00:00:00');
+            const dayOfWeek = selectedDate.getDay(); // 0 = Domingo, 6 = Sábado
+
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                weekendAlert.classList.remove('hidden');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                weekendAlert.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // SISTEMA DE MODAL & AUTENTICAÇÃO
+        function openAuthModal(mode = 'login') {
+            document.getElementById('authModal').classList.remove('hidden');
+            if (mode === 'register') {
+                isPatientRegisterMode = true;
+            } else {
+                isPatientRegisterMode = false;
+            }
+            updatePatientAuthUI();
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function switchAuthUserType(type) {
+            activeAuthTab = type;
+            const tabPatient = document.getElementById('tabPatient');
+            const tabDentist = document.getElementById('tabDentist');
+            const patientForms = document.getElementById('patientForms');
+            const dentistForm = document.getElementById('dentistForm');
+
+            if (type === 'patient') {
+                tabPatient.className = 'flex-1 pb-3 text-sm font-bold text-dental-600 border-b-2 border-dental-600';
+                tabDentist.className = 'flex-1 pb-3 text-sm font-bold text-slate-400 border-b-2 border-transparent hover:text-slate-600';
+                patientForms.classList.remove('hidden');
+                dentistForm.classList.add('hidden');
+            } else {
+                tabDentist.className = 'flex-1 pb-3 text-sm font-bold text-slate-900 border-b-2 border-slate-900';
+                tabPatient.className = 'flex-1 pb-3 text-sm font-bold text-slate-400 border-b-2 border-transparent hover:text-slate-600';
+                dentistForm.classList.remove('hidden');
+                patientForms.classList.add('hidden');
+            }
+        }
+
+        function togglePatientAuthMode() {
+            isPatientRegisterMode = !isPatientRegisterMode;
+            updatePatientAuthUI();
+        }
+
+        function updatePatientAuthUI() {
+            const title = document.getElementById('patientModalTitle');
+            const toggleBtn = document.getElementById('togglePatientModeBtn');
+            const nameField = document.getElementById('patientNameField');
+            const submitBtn = document.getElementById('patientSubmitBtn');
+
+            if (isPatientRegisterMode) {
+                title.innerText = 'Criar Nova Conta';
+                toggleBtn.innerText = 'Já possui conta? Faça Login';
+                nameField.classList.remove('hidden');
+                submitBtn.innerText = 'Cadastrar E-mail e Senha';
+            } else {
+                title.innerText = 'Entrar como Paciente';
+                toggleBtn.innerText = 'Não tem conta? Cadastre-se';
+                nameField.classList.add('hidden');
+                submitBtn.innerText = 'Entrar na Conta';
+            }
+        }
+
+        // PROCESSAR LOGIN / CADASTRO DO PACIENTE
+        function handlePatientAuth(e) {
+            e.preventDefault();
+            const email = document.getElementById('patientEmailInput').value.trim();
+            const password = document.getElementById('patientPasswordInput').value.trim();
+            const name = document.getElementById('patientNameInput').value.trim();
+
+            if (!email || !password) {
+                showToast('Preencha todos os campos obrigatórios.', 'error');
+                return;
+            }
+
+            let patients = JSON.parse(localStorage.getItem('registered_patients')) || [];
+
+            if (isPatientRegisterMode) {
+                if (!name) {
+                    showToast('Por favor, informe seu nome.', 'error');
+                    return;
+                }
+                const existing = patients.find(p => p.email === email);
+                if (existing) {
+                    showToast('E-mail já cadastrado! Faça login.', 'error');
+                    return;
+                }
+                const newPatient = { name, email, password };
+                patients.push(newPatient);
+                localStorage.setItem('registered_patients', JSON.stringify(patients));
+                
+                currentUser = { type: 'patient', name, email };
+                localStorage.setItem('dental_user', JSON.stringify(currentUser));
+                showToast(`Conta criada com sucesso! Bem-vindo, ${name}.`, 'success');
+            } else {
+                const userFound = patients.find(p => p.email === email && p.password === password);
+                if (userFound) {
+                    currentUser = { type: 'patient', name: userFound.name, email: userFound.email };
+                    localStorage.setItem('dental_user', JSON.stringify(currentUser));
+                    showToast(`Login realizado com sucesso!`, 'success');
+                } else {
+                    // Se não achou na lista cadastrada mas inseriu credencial nova para agilidade no demo:
+                    currentUser = { type: 'patient', name: email.split('@')[0], email };
+                    localStorage.setItem('dental_user', JSON.stringify(currentUser));
+                    showToast(`Sessão iniciada como Paciente!`, 'success');
+                }
+            }
+
+            closeAuthModal();
+            updateAuthUI();
+        }
+
+        // PROCESSAR LOGIN DO DENTISTA
+        function handleDentistAuth(e) {
+            e.preventDefault();
+            const cro = document.getElementById('dentistCroInput').value.trim();
+            const password = document.getElementById('dentistPasswordInput').value.trim();
+
+            if (cro === DENTIST_CREDENTIALS.cro && password === DENTIST_CREDENTIALS.password) {
+                currentUser = { type: 'dentist', name: DENTIST_CREDENTIALS.name, cro: DENTIST_CREDENTIALS.cro };
+                localStorage.setItem('dental_user', JSON.stringify(currentUser));
+                showToast('Acesso concedido ao Dr. Wilson!', 'success');
+                closeAuthModal();
+                updateAuthUI();
+            } else {
+                showToast('CRO ou Senha do Dentista incorretos.', 'error');
+            }
+        }
+
+        // LOGOUT
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('dental_user');
+            updateAuthUI();
+            showToast('Você saiu da sua conta.', 'info');
+        }
+
+        // ATUALIZAR INTERFACE COM BASE NO STATUS DO USUÁRIO
+        function updateAuthUI() {
+            const authArea = document.getElementById('authArea');
+            const patientNameInput = document.getElementById('bookingPatientName');
+            const dentistDashboard = document.getElementById('dentistDashboard');
+
+            if (currentUser) {
+                if (currentUser.type === 'dentist') {
+                    authArea.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold bg-slate-900 text-white px-3 py-1.5 rounded-xl border border-slate-700">
+                                <i class="fa-solid fa-user-doctor text-dental-400 mr-1.5"></i>Dr. Wilson (CRO: ${currentUser.cro})
+                            </span>
+                            <button onclick="logout()" class="text-xs font-semibold text-red-600 hover:text-red-700 bg-red-50 px-3 py-1.5 rounded-xl border border-red-200">
+                                Sair
+                            </button>
+                        </div>
+                    `;
+                    patientNameInput.value = `Dr. Wilson (Dentista)`;
+                    dentistDashboard.classList.remove('hidden');
+                    renderDentistAppointments();
+                } else {
+                    authArea.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold bg-dental-50 text-dental-800 px-3 py-1.5 rounded-xl border border-dental-200">
+                                <i class="fa-regular fa-user text-dental-600 mr-1.5"></i>${currentUser.name}
+                            </span>
+                            <button onclick="logout()" class="text-xs font-semibold text-slate-600 hover:text-slate-800 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
+                                Sair
+                            </button>
+                        </div>
+                    `;
+                    patientNameInput.value = `${currentUser.name} (${currentUser.email})`;
+                    dentistDashboard.classList.add('hidden');
+                }
+            } else {
+                authArea.innerHTML = `
+                    <button onclick="openAuthModal('login')" class="px-5 py-2.5 text-sm font-semibold text-dental-700 bg-dental-50 hover:bg-dental-100 rounded-xl transition-all border border-dental-200">
+                        <i class="fa-solid fa-right-to-bracket mr-2"></i>Entrar
+                    </button>
+                    <button onclick="openAuthModal('register')" class="px-5 py-2.5 text-sm font-semibold text-white bg-dental-600 hover:bg-dental-700 rounded-xl shadow-lg shadow-dental-600/30 hover:shadow-none transition-all">
+                        Criar Conta
+                    </button>
+                `;
+                patientNameInput.value = '';
+                patientNameInput.placeholder = 'Faça login para realizar o agendamento';
+                dentistDashboard.classList.add('hidden');
+            }
+        }
+
+        // SUBMETER MARCAÇÃO DE CONSULTA
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+
+            if (!currentUser) {
+                showToast('Por favor, faça login para agendar sua consulta.', 'error');
+                openAuthModal('login');
+                return;
+            }
+
+            const serviceId = parseInt(document.getElementById('bookingService').value);
+            const date = document.getElementById('bookingDate').value;
+            const time = document.getElementById('bookingTime').value;
+
+            if (!serviceId || !date || !time) {
+                showToast('Preencha todos os campos do agendamento.', 'error');
+                return;
+            }
+
+            const service = servicesData.find(s => s.id === serviceId);
+
+            const newAppointment = {
+                id: Date.now(),
+                patientName: currentUser.name || currentUser.email,
+                patientEmail: currentUser.email || 'Presencial/Dentista',
+                serviceName: service.name,
+                price: service.price,
+                isNegotiable: service.isNegotiable,
+                date: date,
+                time: time,
+                createdAt: new Date().toLocaleDateString('pt-BR')
+            };
+
+            appointments.push(newAppointment);
+            localStorage.setItem('dental_appointments', JSON.stringify(appointments));
+
+            showToast('Consulta agendada com sucesso!', 'success');
+            document.getElementById('bookingForm').reset();
+            document.getElementById('servicePriceBadge').innerHTML = '';
+            document.getElementById('weekendAlert').classList.add('hidden');
+            updateAuthUI();
+
+            // Rolar suavemente até o resumo se for o dentista
+            if (currentUser.type === 'dentist') {
+                renderDentistAppointments();
+            }
+        }
+
+        // RENDERIZAR PAINEL DO DENTISTA
+        function renderDentistAppointments() {
+            const list = document.getElementById('dentistAppointmentsList');
+            const noMsg = document.getElementById('noAppointmentsMsg');
+
+            if (appointments.length === 0) {
+                list.innerHTML = '';
+                noMsg.classList.remove('hidden');
+                return;
+            }
+
+            noMsg.classList.add('hidden');
+            list.innerHTML = appointments.map((app, index) => `
+                <tr class="hover:bg-slate-700/40 transition-colors">
+                    <td class="px-6 py-4 font-bold text-white">
+                        ${app.patientName}
+                        <span class="block text-xs font-normal text-slate-400">${app.patientEmail}</span>
+                    </td>
+                    <td class="px-6 py-4 font-medium text-dental-300">
+                        ${app.serviceName}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <i class="fa-regular fa-calendar text-slate-400 mr-1.5"></i>${formatDate(app.date)}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <i class="fa-regular fa-clock text-slate-400 mr-1.5"></i>${app.time}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${app.isNegotiable ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">
+                            ${app.price}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <button onclick="cancelAppointment(${app.id})" class="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-500/20 transition-colors" title="Cancelar Agendamento">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // CANCELAR CONSULTA NO PAINEL
+        function cancelAppointment(id) {
+            appointments = appointments.filter(a => a.id !== id);
+            localStorage.setItem('dental_appointments', JSON.stringify(appointments));
+            renderDentistAppointments();
+            showToast('Agendamento removido.', 'info');
+        }
+
+        // LIMPAR TUDO (DENTISTA)
+        function clearAllAppointments() {
+            if (confirm('Tem certeza que deseja apagar todos os agendamentos salvos?')) {
+                appointments = [];
+                localStorage.setItem('dental_appointments', JSON.stringify(appointments));
+                renderDentistAppointments();
+                showToast('Todos os registros foram apagados.', 'info');
+            }
+        }
+
+        // AUXILIAR DE DATA
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const [year, month, day] = dateStr.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+        // EXIBIÇÃO DE TOAST NOTIFICATION
+        function showToast(msg, type = 'info') {
+            const toast = document.getElementById('toast');
+            const message = document.getElementById('toastMessage');
+            const icon = document.getElementById('toastIcon');
+
+            message.innerText = msg;
+
+            if (type === 'success') {
+                icon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>';
+            } else if (type === 'error') {
+                icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-400 text-lg"></i>';
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-circle-info text-dental-400 text-lg"></i>';
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
